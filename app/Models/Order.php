@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enums\Order\OrderStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -20,7 +21,7 @@ use Illuminate\Support\Carbon;
  */
 class Order extends Model
 {
-    use HasUuids;
+    use HasUuids, HasFactory;
 
     protected $fillable = [
         'customer_name',
