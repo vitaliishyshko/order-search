@@ -1,0 +1,55 @@
+services:
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: nginx.docker
+    volumes:
+      - .:/app
+    depends_on:
+      - php-fpm
+    ports:
+      - "8000:80"
+    networks:
+      - network
+  php-fpm:
+    build:
+      context: ./docker/php
+      dockerfile: php-fpm.docker
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+    networks:
+      - network
+  php-cli:
+    build:
+      context: ./docker/php
+      dockerfile: php-cli.docker
+    volumes:
+      - .:/app
+      - composer:/root/.composer/cache
+    depends_on:
+      - mysql
+    networks:
+      - network
+  mysql:
+    image: mysql:9
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      - "MYSQL_ROOT_PASSWORD=password"
+      - "MYSQL_USER=user"
+      - "MYSQL_PASSWORD=password"
+      - "MYSQL_DATABASE=app"
+    ports:
+      - "3306:3306"
+    networks:
+      - network
+
+volumes:
+  mysql_data:
+  composer:
+
+networks:
+  network:
+    driver: bridge
