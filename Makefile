@@ -2,7 +2,7 @@ up: docker-up
 down: docker-down
 restart: docker-down docker-up
 init: docker-down-clear docker-pull docker-build docker-up project-init
-project-init: project-composer-install project-wait-db project-migrations
+project-init: project-composer-install project-wait-db project-migrations project-seeders
 
 docker-up:
 	docker compose up -d
@@ -27,3 +27,6 @@ project-wait-db:
 
 project-migrations:
 	docker compose run --rm php-cli php artisan migrate
+
+project-seeders:
+	docker compose run --rm php-cli php artisan db:seed
