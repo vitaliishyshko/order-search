@@ -19,7 +19,7 @@ final class OrderFactory extends Factory
     {
         return [
             'customer_name' => fake(self::LOCALE)->name(),
-            'total_amount' => fake()->randomNumber(),
+            'total_amount' => fake()->numberBetween(1000, 999999),
             'status' => fake()->randomElement(OrderStatus::cases()),
             'items_description' => fake(self::LOCALE)->randomElement([
                 'Насос вібраційний WETRON верхній забір 0.25кВт H 75м Q 18л/хв Ø100мм 10м кабеля',
